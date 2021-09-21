@@ -1,1 +1,1 @@
-# melbetaffiliates.github.io
+# https://melbetaffiliates.github.io
