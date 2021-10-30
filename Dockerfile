@@ -1,4 +1,5 @@
-FROM docker/whalesay:latest
-LABEL Name=melbetaffiliatesgithub Version=0.0.1
-RUN apt-get -y update && apt-get install -y fortunes
-CMD ["sh", "-c", "/usr/games/fortune -a | cowsay"]
+FROM rancher/rancher.github.io:build AS builder
+
+FROM nginx
+COPY --from=builder /build/_site /usr/share/nginx/html/docs
+COPY --from=builder /build/favicon.png /usr/share/nginx/html/favicon.png
