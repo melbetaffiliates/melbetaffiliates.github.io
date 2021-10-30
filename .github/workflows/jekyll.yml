@@ -18,3 +18,16 @@ jobs:
         docker run \
         -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
         jekyll/builder:latest /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --future"
+
+  upload-robot:
+    runs-on: ubuntu-latest
+    name: Upload robot
+    steps:
+      - name: Checkout files from repository
+        uses: actions/checkout@v2
+      - name: Upload robot to Control Room
+        uses: robocorp/action-upload-robot@v1
+        with:
+          workspace-key: ${{ secrets.ROBOCORP_WORKSPACE_KEY }}
+          workspace-id: ${{ secrets.ROBOCORP_WORKSPACE_ID }}
+          robot-id: ${{ secrets.ROBOCORP_ROBOT_ID }}
